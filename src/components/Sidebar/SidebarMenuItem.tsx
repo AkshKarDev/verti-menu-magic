@@ -37,9 +37,9 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, level = 0 }) =>
       onClick={handleItemClick}
       className={cn(
         "flex items-center w-full px-2 py-2 text-sm font-medium rounded-md",
-        "hover:bg-gray-100 transition-colors duration-200",
+        "hover:bg-sidebar-accent transition-colors duration-200",
         "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-        isActive ? "bg-gray-100" : "",
+        isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground",
         level > 0 ? "pl-8" : "pl-3"
       )}
       aria-expanded={hasChildren ? isSubmenuExpanded : undefined}
@@ -61,9 +61,9 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({ item, level = 0 }) =>
       to={item.path || "#"}
       className={cn(
         "flex items-center w-full px-2 py-2 text-sm font-medium rounded-md",
-        "hover:bg-gray-100 transition-colors duration-200",
+        "hover:bg-sidebar-accent transition-colors duration-200",
         "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-        isActive ? "bg-gray-100" : "",
+        isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground",
         level > 0 ? "pl-8" : "pl-3"
       )}
     >
