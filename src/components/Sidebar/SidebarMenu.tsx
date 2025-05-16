@@ -8,7 +8,11 @@ import {
   User, 
   FileText, 
   Mail, 
-  Calendar 
+  Calendar,
+  ShieldAlert,
+  Shield,
+  AlertTriangle,
+  Info
 } from "lucide-react";
 
 // Define our menu structure with nested items
@@ -18,6 +22,23 @@ const menuItems = [
     title: "Dashboard",
     icon: Home,
     path: "/"
+  },
+  {
+    id: "risk",
+    title: "Risk Management",
+    icon: ShieldAlert,
+    children: [
+      {
+        id: "limit-breaches",
+        title: "Limit Breaches",
+        path: "/risk/limit-breaches"
+      },
+      {
+        id: "counterparties",
+        title: "Counterparties",
+        path: "/risk/counterparties"
+      }
+    ]
   },
   {
     id: "user",

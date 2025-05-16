@@ -14,6 +14,8 @@ import InvoicesPage from "./pages/Invoices";
 import MessagesPage from "./pages/Messages";
 import CalendarPage from "./pages/Calendar";
 import SettingsPage from "./pages/Settings";
+import LimitBreachesPage from "./pages/risk/LimitBreaches";
+import CounterpartiesPage from "./pages/risk/Counterparties";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,9 @@ const App = () => (
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            {/* Risk Management Routes */}
+            <Route path="/risk/limit-breaches" element={<LimitBreachesPage />} />
+            <Route path="/risk/counterparties" element={<CounterpartiesPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
