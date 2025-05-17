@@ -7,6 +7,29 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Shield, AlertTriangle, Search, Info } from "lucide-react";
 
+// Helper function to handle monetary string calculations
+const parseCurrency = (currencyString: string): number => {
+  // Remove currency symbol and 'M' suffix, then parse as float
+  return parseFloat(currencyString.replace(/[$M]/g, ''));
+};
+
+// Helper function to format currency values back to display format
+const formatCurrency = (value: number): string => {
+  return `$${value.toFixed(1)}M`;
+};
+
+// Calculate settlement limit and daily trading limit based on credit limit
+const calculateLimits = (creditLimit: string): { settlementLimit: string, dailyTradingLimit: string } => {
+  const numericValue = parseCurrency(creditLimit);
+  const settlementLimit = numericValue * 0.6;
+  const dailyTradingLimit = numericValue * 0.4;
+  
+  return {
+    settlementLimit: formatCurrency(settlementLimit),
+    dailyTradingLimit: formatCurrency(dailyTradingLimit)
+  };
+};
+
 const counterparties = [
   { id: 1, name: "Global Bank Ltd", rating: "A+", creditLimit: "$10M", currentExposure: "$8.2M", availableLimit: "$1.8M", risk: "Medium" },
   { id: 2, name: "Eastern Financial", rating: "AA-", creditLimit: "$15M", currentExposure: "$5.6M", availableLimit: "$9.4M", risk: "Low" },
@@ -167,15 +190,19 @@ const CounterpartiesPage = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredCounterparties.map((cp) => (
-                      <TableRow key={cp.id} className="cursor-pointer hover:bg-muted">
-                        <TableCell className="font-medium">{cp.name}</TableCell>
-                        <TableCell>{cp.creditLimit}</TableCell>
-                        <TableCell>{cp.creditLimit.replace('$', '$') * 0.6}</TableCell>
-                        <TableCell>{cp.creditLimit.replace('$', '$') * 0.4}</TableCell>
-                        <TableCell>2023-05-01</TableCell>
-                      </TableRow>
-                    ))}
+                    {filteredCounterparties.map((cp) => {
+                      const limits = calculateLimits(cp.creditLimit);
+                      
+                      return (
+                        <TableRow key={cp.id} className="cursor-pointer hover:bg-muted">
+                          <TableCell className="font-medium">{cp.name}</TableCell>
+                          <TableCell>{cp.creditLimit}</TableCell>
+                          <TableCell>{limits.settlementLimit}</TableCell>
+                          <TableCell>{limits.dailyTradingLimit}</TableCell>
+                          <TableCell>2023-05-01</TableCell>
+                        </TableRow>
+                      );
+                    })}
                   </TableBody>
                 </Table>
               </CardContent>
